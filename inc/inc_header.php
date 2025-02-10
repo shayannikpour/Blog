@@ -33,7 +33,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-white border-bottom py-3">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
+            <a class="navbar-brand d-flex align-items-center" href="index.php">
                 <i class="bi bi-bootstrap-fill fs-2 text-dark me-2"></i>
                 <span class="fs-4 fw-semibold">Blog</span>
             </a>
@@ -56,8 +56,8 @@
                 </ul>
 
                 <div class="d-flex ms-lg-4" id="nav-login">
-                    <a class="btn btn-outline-dark px-4" href="#">
-                        Log In ->
+                    <a class="btn btn-outline-dark px-4" href="logout.php">
+                        Log out ->
                     </a>
                 </div>
             </div>

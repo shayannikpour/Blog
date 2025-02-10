@@ -1,5 +1,13 @@
 <?php include('./inc/inc_header.php'); ?>
 
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+
 <!-- Blurred background -->
 <div class="background-blur"></div>
 

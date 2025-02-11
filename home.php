@@ -11,6 +11,13 @@ if (!isset($_SESSION['username'])) {
 <!-- Blurred background -->
 <div class="background-blur"></div>
 
+<!-- Write Article Button -->
+<div class="container mt-4">
+    <div class="text-center">
+        <a href="write.php" class="btn btn-primary btn-lg">Write New Article</a>
+    </div>
+</div>
+
 <!-- Featured Articles Section -->
 <section class="py-5 content">
     <div class="container">

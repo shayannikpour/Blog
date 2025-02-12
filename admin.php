@@ -1,3 +1,4 @@
+<?php include('./inc/inc_header.php'); ?>
 <?php
 session_start();
 $db = new SQLite3('info.db');
@@ -24,15 +25,12 @@ if ($_SESSION['role'] !== 'Admin') {
     exit();
 }
 
-// Handle Approvals (Toggle IsApproved)
-if (isset($_POST['toggle_approval'])) {
+// Handle One-Time Approval
+if (isset($_POST['approve_user'])) {
     $username = $_POST['username'];
-    $currentStatus = $_POST['current_status']; // Get current status from form input
-    $newStatus = $currentStatus == 1 ? 0 : 1; // Toggle between 1 (Approved) and 0 (Pending)
     
-    $stmt = $db->prepare("UPDATE Users SET IsApproved = :newStatus WHERE Username = :username");
+    $stmt = $db->prepare("UPDATE Users SET IsApproved = 1 WHERE Username = :username AND IsApproved = 0");
     $stmt->bindValue(':username', $username, SQLITE3_TEXT);
-    $stmt->bindValue(':newStatus', $newStatus, SQLITE3_INTEGER);
     $stmt->execute();
 }
 
@@ -69,48 +67,67 @@ if (isset($_POST['delete_user'])) {
 $result = $db->query("SELECT Username, FirstName, LastName, Role, IsApproved FROM Users");
 ?>
 
-<h2>Admin Panel - Manage Users</h2>
-<table border="1">
-    <tr>
-        <th>Username</th>
-        <th>Name</th>
-        <th>Role</th>
-        <th>Status</th>
-        <th>Actions</th>
-    </tr>
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center mb-4 text-primary">Admin Panel - Manage Users</h2>
 
-    <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)) { ?>
-        <tr>
-            <td><?= $row['Username'] ?></td>
-            <td><?= $row['FirstName'] . " " . $row['LastName'] ?></td>
-            <td><?= $row['Role'] ?></td>
-            <td><?= $row['IsApproved'] ? '✅ Approved' : '❌ Pending' ?></td>
-            <td>
-                <!-- Toggle Approval Button -->
-                <form method="post">
-                    <input type="hidden" name="username" value="<?= $row['Username'] ?>">
-                    <input type="hidden" name="current_status" value="<?= $row['IsApproved'] ?>">
-                    <button type="submit" name="toggle_approval">
-                        <?= $row['IsApproved'] ? 'Revoke Approval' : 'Approve' ?>
-                    </button>
-                </form>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Approve</th>
+                        <th>Actions</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)) { ?>
+                        <tr>
+                            <td><?= $row['Username'] ?></td>
+                            <td><?= $row['FirstName'] . " " . $row['LastName'] ?></td>
+                            <td><?= $row['Role'] ?></td>
+                            <td>
+                                <span class="badge <?= $row['IsApproved'] ? 'bg-success' : 'bg-danger' ?>">
+                                    <?= $row['IsApproved'] ? 'Approved' : 'Pending' ?>
+                                </span>
+                            </td>
+                            <td>
+                                <?php if ($row['IsApproved'] == 0) { ?>
+                                    <!-- Approve Button (One-Time Only) -->
+                                    <form method="post">
+                                        <input type="hidden" name="username" value="<?= $row['Username'] ?>">
+                                        <button type="submit" name="approve_user" class="btn btn-success btn-sm">Approve</button>
+                                    </form>
+                                <?php } ?>
+                            </td>
+                            <td>
+                                <!-- Role Change Form -->
+                                <form method="post">
+                                    <input type="hidden" name="username" value="<?= $row['Username'] ?>">
+                                    <select name="role" class="form-select form-select-sm">
+                                        <option value="Contributor" <?= $row['Role'] == 'Contributor' ? 'selected' : '' ?>>Contributor</option>
+                                        <option value="Admin" <?= $row['Role'] == 'Admin' ? 'selected' : '' ?>>Admin</option>
+                                    </select>
+                                    <button type="submit" name="change_role" class="btn btn-info btn-sm">Change</button>
+                                </form>
+                            </td>
+                            <td>
+                                <!-- Delete User Button (Separate Column) -->
+                                <form method="post" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone!');">
+                                    <input type="hidden" name="username" value="<?= $row['Username'] ?>">
+                                    <button type="submit" name="delete_user" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-                <!-- Role Change Form -->
-                <form method="post">
-                    <input type="hidden" name="username" value="<?= $row['Username'] ?>">
-                    <select name="role">
-                        <option value="Contributor" <?= $row['Role'] == 'Contributor' ? 'selected' : '' ?>>Contributor</option>
-                        <option value="Admin" <?= $row['Role'] == 'Admin' ? 'selected' : '' ?>>Admin</option>
-                    </select>
-                    <button type="submit" name="change_role">Change Role</button>
-                </form>
-
-                <!-- Delete User Button -->
-                <form method="post" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone!');">
-                    <input type="hidden" name="username" value="<?= $row['Username'] ?>">
-                    <button type="submit" name="delete_user" style="background-color: red; color: white;">Delete User</button>
-                </form>
-            </td>
-        </tr>
-    <?php } ?>
-</table>
+<?php include('./inc/inc_footer.php'); ?>

@@ -1,7 +1,7 @@
 <?php include('./inc/inc_header.php'); ?>
 
 <?php
-$db = new SQLite3('users.db');
+$db = new SQLite3('info.db');
 $version = $db->querySingle('SELECT SQLITE_VERSION()');
 // echo "<br />version: " . $version . "<br />";
 

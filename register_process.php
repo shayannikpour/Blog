@@ -1,5 +1,5 @@
 <?php
-$db = new SQLite3('users.db');
+$db = new SQLite3('info.db');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);

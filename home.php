@@ -5,7 +5,7 @@
 $id_count = 1;
 
 session_start();
-$db = new SQLite3('users.db');
+$db = new SQLite3('info.db');
 
 // SQL statement to drop the Articles table
 // $sql = "DROP TABLE IF EXISTS Articles";

@@ -8,7 +8,7 @@
         <form method="post" action="login_process.php">
             <div class="input-group">
                 <label for="username">Username</label>
-                <input type="text" name="username" id="username" required>
+                <input type="email" name="username" id="username" required>
             </div>
             <div class="input-group">
                 <label for="password">Password</label>

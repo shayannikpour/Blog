@@ -48,10 +48,7 @@
                         <a class="nav-link text-dark fs-5" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark fs-5" href="#">Article</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fs-5" href="#">About Us</a>
+                        <a class="nav-link text-dark fs-5" href="admin.php">Admin</a>
                     </li>
                 </ul>
 

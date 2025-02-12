@@ -6,12 +6,16 @@ $version = $db->querySingle('SELECT SQLITE_VERSION()');
 // echo "<br />version: " . $version . "<br />";
 
 
-$SQL_create_table = "CREATE TABLE IF NOT EXISTS Users
-(
-Username VARCHAR(30) NOT NULL,
-Password VARCHAR(80),
-PRIMARY KEY (Username)
+$SQL_create_table = "CREATE TABLE IF NOT EXISTS Users (
+    Username VARCHAR(255) NOT NULL PRIMARY KEY,
+    Password VARCHAR(255) NOT NULL,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    RegistrationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    IsApproved BOOLEAN DEFAULT 0,
+    Role VARCHAR(20) DEFAULT 'Contributor'
 );";
+
 
 
 $db->exec($SQL_create_table);

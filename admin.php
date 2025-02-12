@@ -79,7 +79,7 @@ $result = $db->query("SELECT Username, FirstName, LastName, Role, IsApproved FRO
                         <th>Name</th>
                         <th>Role</th>
                         <th>Status</th>
-                        <th>Approve</th>
+                        <th>Approve button</th>
                         <th>Actions</th>
                         <th>Delete</th>
                     </tr>

@@ -41,15 +41,14 @@ $SQL_create_table = "CREATE TABLE IF NOT EXISTS Articles (
 // Execute the table creation query
 $db->exec($SQL_create_table);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") 
-{
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article_title = trim($_POST['article_title']);
     $article_body = trim($_POST['article_body']);
-    
+
     $create_date = date("Y/m/d");
     $start_date = date("Y/m/d");
     $end_date = date("Y/m/d");
-    
+
     // $contributer_username_email = $_SESSION['username'];
     $contributer_username_email = "test@test.com";
 
@@ -59,14 +58,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     VALUES ('$article_title', '$article_body', 
     '$create_date', '$start_date', '$end_date', '$contributer_username_email');";
 
-    
+
     // Execute the new insert statement
     $db->exec($SQL_insert_new_data);
 
     $id_count += $id_count;
 }
 
+
+//For admin button
+$stmt = $db->prepare("SELECT Role FROM Users WHERE Username = :username");
+$stmt->bindValue(':username', $_SESSION['username'], SQLITE3_TEXT);
+$result = $stmt->execute();
+$user = $result->fetchArray(SQLITE3_ASSOC);
+$isAdmin = ($user && $user['Role'] === 'Admin');
 ?>
+
+
+<!-- Admin Button (Visible Only for Admins) -->
+<?php if ($isAdmin) { ?>
+    <div class="container mt-4">
+        <div class="text-left">
+            <a href="admin.php" class="btn btn-danger btn-lg shadow-lg">Admin Panel</a>
+        </div>
+    </div>
+<?php } ?>
+
 
 <!-- Blurred background -->
 <div class="background-blur"></div>
@@ -78,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         <!-- <a href="write.php" class="btn btn-primary btn-lg">Edit article</a>
         <a href="write.php" class="btn btn-primary btn-lg">Write New Article</a> -->
     </div>
-    
+
 </div>
 
 <div class="container mt-4">
@@ -128,5 +145,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         }
     }
 </script>
+
+<!-- Custom CSS for Admin Button -->
+<style>
+    .admin-button {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        z-index: 1000;
+    }
+
+    .admin-button a {
+        padding: 12px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .admin-button a:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+</style>
 
 <?php include('./inc/inc_footer.php'); ?>

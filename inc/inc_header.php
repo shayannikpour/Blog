@@ -48,7 +48,7 @@
                         <a class="nav-link text-dark fs-5" href="home.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark fs-5" href="admin.php">Admin</a>
+                        <a class="nav-link text-dark fs-5" href="write.php">Manage article</a>
                     </li>
                 </ul>
 

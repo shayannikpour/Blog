@@ -2,7 +2,8 @@
 session_start();
 $db = new SQLite3('users.db');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
@@ -12,16 +13,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->execute();
     $row = $result->fetchArray(SQLITE3_ASSOC);
 
-    if ($row) {
+
+
+    if ($row) 
+    {
         // Verify password using password_verify()
-        if (password_verify($password, $row['Password'])) {
+        if (password_verify($password, $row['Password'])) 
+        {
             $_SESSION['username'] = $username;
             header("Location: home.php");
             exit();
-        } else {
+        } 
+        else 
+        {
             echo "<script>alert('Invalid password. Please try again.'); window.location.href='login.php';</script>";
         }
-    } else {
+    } 
+    else 
+    {
         echo "<script>alert('Username not found. Please register first.'); window.location.href='register.php';</script>";
     }
 }

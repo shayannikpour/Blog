@@ -74,49 +74,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 <!-- Write Article Button -->
 <div class="container mt-4">
     <div class="text-center">
-        <a href="write.php" class="btn btn-primary btn-lg">Write New Article</a>
+        <a href="write.php" class="btn btn-primary btn-lg">Click to manage your articles</a>
+        <!-- <a href="write.php" class="btn btn-primary btn-lg">Edit article</a>
+        <a href="write.php" class="btn btn-primary btn-lg">Write New Article</a> -->
     </div>
+    
 </div>
 
-<!-- Articles Section -->
-<section class="py-5 content">
-    <div class="container">
-        <h2 class="mb-4 text-center">Latest Articles</h2>
-        <div class="row g-4">
-            <?php
-            if ($results) {
-                while ($article = $results->fetchArray(SQLITE3_ASSOC)) {
-                    // Get excerpt of content (first 150 characters)
-                    $excerpt = strlen($article['ArticleBody']) > 150 
-                        ? substr($article['ArticleBody'], 0, 150) . '...' 
-                        : $article['ArticleBody'];
-            ?>
-                    <div class="col-md-4">
-                        <div class="card article-card shadow-lg">
-                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Article thumbnail">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo htmlspecialchars($article['ArticleTitle']); ?></h5>
-                                <p class="card-text"><?php echo htmlspecialchars($excerpt); ?></p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <a href="article-details.php?id=<?php echo $article['ArticleId']; ?>" class="btn btn-outline-primary">Read More</a>
-                                    <small class="text-muted">
-                                        <?php echo htmlspecialchars($article['CreateDate']); ?>
-                                    </small>
-                                </div>
-                                <div class="mt-2">
-                                    <small class="text-muted">
-                                        By: <?php echo htmlspecialchars($article['ContributerUsername']); ?>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            <?php 
-                }
-            }
-            ?>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Latest Articles</h2>
+
+    <?php while ($row = $results->fetchArray(SQLITE3_ASSOC)) { ?>
+        <div class="card mb-3 p-3 shadow-sm">
+            <!-- Article Title -->
+            <h4 class="text-primary"><?= htmlspecialchars($row['ArticleTitle']) ?></h4>
+
+            <!-- Author & Date -->
+            <p class="text-muted">
+                <?= htmlspecialchars($row['ContributerUsername']) ?>, <?= date("F j, Y", strtotime($row['CreateDate'])) ?>
+            </p>
+
+            <!-- Article Preview -->
+            <p>
+                <span id="preview_<?= $row['ArticleId'] ?>">
+                    <?= htmlspecialchars(substr($row['ArticleBody'], 0, 100)) ?>...
+                </span>
+                <span id="full_<?= $row['ArticleId'] ?>" style="display: none;">
+                    <?= nl2br(htmlspecialchars($row['ArticleBody'])) ?>
+                </span>
+                <a href="javascript:void(0);" class="text-primary" onclick="toggleArticle(<?= $row['ArticleId'] ?>)">
+                    <span id="toggle_<?= $row['ArticleId'] ?>">more...</span>
+                </a>
+            </p>
         </div>
-    </div>
-</section>
+    <?php } ?>
+</div>
+
+<!-- JavaScript for Expand/Collapse -->
+<script>
+    function toggleArticle(id) {
+        let preview = document.getElementById("preview_" + id);
+        let fullText = document.getElementById("full_" + id);
+        let toggleLink = document.getElementById("toggle_" + id);
+
+        if (fullText.style.display === "none") {
+            preview.style.display = "none";
+            fullText.style.display = "inline";
+            toggleLink.innerText = " less";
+        } else {
+            preview.style.display = "inline";
+            fullText.style.display = "none";
+            toggleLink.innerText = "more...";
+        }
+    }
+</script>
 
 <?php include('./inc/inc_footer.php'); ?>

@@ -14,6 +14,17 @@ $SQL_create_table = "CREATE TABLE IF NOT EXISTS Users (
     RegistrationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
     IsApproved BOOLEAN DEFAULT 0,
     Role VARCHAR(20) DEFAULT 'Contributor'
+);
+CREATE TABLE IF NOT EXISTS Articles (
+    ArticleId INTEGER PRIMARY KEY AUTOINCREMENT,
+    ArticleTitle VARCHAR(80),
+    ArticleBody VARCHAR(500),
+
+    CreateDate DATE,
+    StartDate DATE,
+    EndDate DATE,
+
+    ContributerUsername VARCHAR(80)
 );";
 
 

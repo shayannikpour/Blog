@@ -33,7 +33,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-white border-bottom py-3">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.php">
+            <a class="navbar-brand d-flex align-items-center" href="home.php">
                 <i class="bi bi-bootstrap-fill fs-2 text-dark me-2"></i>
                 <span class="fs-4 fw-semibold">Blog</span>
             </a>
@@ -45,7 +45,7 @@
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav mx-auto gap-4">
                     <li class="nav-item">
-                        <a class="nav-link text-dark fs-5" href="#">Home</a>
+                        <a class="nav-link text-dark fs-5" href="home.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark fs-5" href="admin.php">Admin</a>

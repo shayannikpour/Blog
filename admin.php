@@ -24,11 +24,15 @@ if ($_SESSION['role'] !== 'Admin') {
     exit();
 }
 
-// Handle Approvals
-if (isset($_POST['approve'])) {
+// Handle Approvals (Toggle IsApproved)
+if (isset($_POST['toggle_approval'])) {
     $username = $_POST['username'];
-    $stmt = $db->prepare("UPDATE Users SET IsApproved = 1 WHERE Username = :username");
+    $currentStatus = $_POST['current_status']; // Get current status from form input
+    $newStatus = $currentStatus == 1 ? 0 : 1; // Toggle between 1 (Approved) and 0 (Pending)
+    
+    $stmt = $db->prepare("UPDATE Users SET IsApproved = :newStatus WHERE Username = :username");
     $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+    $stmt->bindValue(':newStatus', $newStatus, SQLITE3_INTEGER);
     $stmt->execute();
 }
 
@@ -44,6 +48,20 @@ if (isset($_POST['change_role'])) {
     // If the currently logged-in user has their role changed, update session
     if ($username === $_SESSION['username']) {
         $_SESSION['role'] = $newRole;
+    }
+}
+
+// Handle User Deletion
+if (isset($_POST['delete_user'])) {
+    $username = $_POST['username'];
+
+    // Prevent admin from deleting themselves
+    if ($username === $_SESSION['username']) {
+        echo "<script>alert('You cannot delete your own account!');</script>";
+    } else {
+        $stmt = $db->prepare("DELETE FROM Users WHERE Username = :username");
+        $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+        $stmt->execute();
     }
 }
 
@@ -68,13 +86,16 @@ $result = $db->query("SELECT Username, FirstName, LastName, Role, IsApproved FRO
             <td><?= $row['Role'] ?></td>
             <td><?= $row['IsApproved'] ? '✅ Approved' : '❌ Pending' ?></td>
             <td>
-                <?php if (!$row['IsApproved']) { ?>
-                    <form method="post">
-                        <input type="hidden" name="username" value="<?= $row['Username'] ?>">
-                        <button type="submit" name="approve">Approve</button>
-                    </form>
-                <?php } ?>
-                
+                <!-- Toggle Approval Button -->
+                <form method="post">
+                    <input type="hidden" name="username" value="<?= $row['Username'] ?>">
+                    <input type="hidden" name="current_status" value="<?= $row['IsApproved'] ?>">
+                    <button type="submit" name="toggle_approval">
+                        <?= $row['IsApproved'] ? 'Revoke Approval' : 'Approve' ?>
+                    </button>
+                </form>
+
+                <!-- Role Change Form -->
                 <form method="post">
                     <input type="hidden" name="username" value="<?= $row['Username'] ?>">
                     <select name="role">
@@ -82,6 +103,12 @@ $result = $db->query("SELECT Username, FirstName, LastName, Role, IsApproved FRO
                         <option value="Admin" <?= $row['Role'] == 'Admin' ? 'selected' : '' ?>>Admin</option>
                     </select>
                     <button type="submit" name="change_role">Change Role</button>
+                </form>
+
+                <!-- Delete User Button -->
+                <form method="post" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone!');">
+                    <input type="hidden" name="username" value="<?= $row['Username'] ?>">
+                    <button type="submit" name="delete_user" style="background-color: red; color: white;">Delete User</button>
                 </form>
             </td>
         </tr>

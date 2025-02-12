@@ -37,11 +37,11 @@
     <footer class="mt-auto bg-white border-top">
         <div class="container main-content">
             <div class="row py-4 justify-content-center align-items-center">
-                <div class="col-md-4 mb-4 mb-md-0 text-center text-md-start">
+                <!-- <div class="col-md-4 mb-4 mb-md-0 text-center text-md-start">
                     <div class="d-flex flex-column h-100 justify-content-center">
                         <span class="text-body-secondary mb-3">Copyright © 2025 Blog</span>
                     </div>
-                </div>
+                </div> -->
 
 
                 <div class="col-md-4 mb-4 mb-md-0 text-center">
@@ -50,7 +50,7 @@
 
                 </div>
 
-                <div class="col-md-4 text-center">
+                <!-- <div class="col-md-4 text-center">
                     <h5 class="mb-3 text-body-secondary" id="footer-social-section-header">Follow Us</h5>
                     <div class="d-flex gap-4 justify-content-center" , id="footer-social-section-links">
                         <a href="#" class="text-body-secondary text-decoration-none">
@@ -66,10 +66,10 @@
                             <i class="bi bi-twitter-x fs-4"></i>
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
 
-            <div class="border-top py-3">
+            <!-- <div class="border-top py-3">
                 <div class="row align-items-center">
                     <div class="col-md-6 text-center text-md-start text-body-secondary mb-2 mb-md-0">
                         © 2024 Blog Platform. All rights reserved.
@@ -79,7 +79,7 @@
                         <a href="#" class="text-body-secondary text-decoration-none">Terms of Service</a>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </footer>
 </body>

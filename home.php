@@ -5,8 +5,16 @@
 $id_count = 1;
 
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $db = new SQLite3('info.db');
 
+// Fetch articles from the database
+$query = "SELECT * FROM Articles ORDER BY CreateDate DESC";
+$results = $db->query($query);
 
 // SQL statement to drop the Articles table
 // $sql = "DROP TABLE IF EXISTS Articles";
@@ -70,43 +78,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     </div>
 </div>
 
-<!-- Featured Articles Section -->
+<!-- Articles Section -->
 <section class="py-5 content">
     <div class="container">
         <h2 class="mb-4 text-center">Latest Articles</h2>
         <div class="row g-4">
-            <!-- Article Card 1 -->
-            <div class="col-md-4">
-                <div class="card article-card shadow-lg">
-                    <div class="card-body">
-                        <h5 class="card-title">Understanding Web Development</h5>
-                        <p class="card-text">A comprehensive guide to modern web development practices and technologies.</p>
-                        <a href="article-details.php?id=1" class="btn btn-outline-primary">Read More</a>
+            <?php
+            if ($results) {
+                while ($article = $results->fetchArray(SQLITE3_ASSOC)) {
+                    // Get excerpt of content (first 150 characters)
+                    $excerpt = strlen($article['ArticleBody']) > 150 
+                        ? substr($article['ArticleBody'], 0, 150) . '...' 
+                        : $article['ArticleBody'];
+            ?>
+                    <div class="col-md-4">
+                        <div class="card article-card shadow-lg">
+                            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Article thumbnail">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo htmlspecialchars($article['ArticleTitle']); ?></h5>
+                                <p class="card-text"><?php echo htmlspecialchars($excerpt); ?></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="article-details.php?id=<?php echo $article['ArticleId']; ?>" class="btn btn-outline-primary">Read More</a>
+                                    <small class="text-muted">
+                                        <?php echo htmlspecialchars($article['CreateDate']); ?>
+                                    </small>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-muted">
+                                        By: <?php echo htmlspecialchars($article['ContributerUsername']); ?>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Article Card 2 -->
-            <div class="col-md-4">
-                <div class="card article-card shadow-lg">
-                    <div class="card-body">
-                        <h5 class="card-title">Boosting Productivity with AI</h5>
-                        <p class="card-text">Explore how artificial intelligence is transforming productivity and efficiency.</p>
-                        <a href="article-details.php?id=2" class="btn btn-outline-primary">Read More</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Article Card 3 -->
-            <div class="col-md-4">
-                <div class="card article-card shadow-lg">
-                    <div class="card-body">
-                        <h5 class="card-title">The Future of Technology</h5>
-                        <p class="card-text">An in-depth look at emerging trends and technologies shaping the future.</p>
-                        <a href="article-details.php?id=3" class="btn btn-outline-primary">Read More</a>
-                    </div>
-                </div>
-            </div>
+            <?php 
+                }
+            }
+            ?>
         </div>
     </div>
 </section>

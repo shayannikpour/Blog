@@ -45,19 +45,9 @@
 
 
                 <div class="col-md-4 mb-4 mb-md-0 text-center">
-                    <h5 class="mb-3 text-body-secondary">Contact Us</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <a href="mailto:Blog@my.bcit.ca" class="text-body-secondary text-decoration-none">
-                                <i class="bi bi-envelope me-2"></i>Blog@my.bcit.ca
-                            </a>
-                        </li>
-                        <li>
-                            <a href="tel:+1234567890" class="text-body-secondary text-decoration-none">
-                                <i class="bi bi-telephone me-2"></i>+1 (234) 567-890
-                            </a>
-                        </li>
-                    </ul>
+                    <h5 class="mb-3 text-body-secondary">Team Members</h5>
+                    <h5 class="mb-3 text-body-secondary">Eddie, Shayan, Jask</h5>
+
                 </div>
 
                 <div class="col-md-4 text-center">

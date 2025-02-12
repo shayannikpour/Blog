@@ -18,6 +18,7 @@ $db->exec($SQL_create_table);
 
 ?>
 
+<!-- Hey -->
 
 <div class="background-blur"></div> <!-- Blurred background -->
 

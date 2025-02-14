@@ -41,9 +41,9 @@ $db->exec($SQL_create_table);
     <div class="container">
         <h1 class="display-4 fw-bold">Welcome to Our Blog Platform!</h1>
         <p class="lead text-muted mt-3">Discover engaging articles and thought-provoking insights. Let's explore!</p>
-        <a href="register.php" class="btn btn-primary btn-lg mt-4">Sign up</a>
+        <a href="register.php" class="btn btn-primary btn-lg mt-4" style="width: 100px;">Sign up</a>
 <!-- </br> -->
-        <a href="login.php" class="btn btn-primary btn-lg mt-4">Log in</a>
+        <a href="login.php" class="btn btn-primary btn-lg mt-4" style="width: 100px;">Log in</a>
     </div>
 </section>
 

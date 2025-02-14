@@ -1,4 +1,5 @@
 <?php
+// Removed session_start() since it's called in the main pages
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,9 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="stylesheet" href="inc/style.css">
-
 
     <style>
         body {
@@ -23,11 +22,9 @@
         }
 
         #nav-login .btn {
-        font-family: "Outfit", sans-serif;
-        font-weight: 500px; 
+            font-family: "Outfit", sans-serif;
+            font-weight: 500px; 
         }
-
-
     </style>
 </head>
 <body>
@@ -44,18 +41,28 @@
 
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav mx-auto gap-4">
+                    <!-- Home link is always visible -->
                     <li class="nav-item">
                         <a class="nav-link text-dark fs-5" href="home.php">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fs-5" href="write.php">Manage article</a>
-                    </li>
+                    <!-- Manage article link only visible when logged in -->
+                    <?php if (isset($_SESSION['username'])) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fs-5" href="write.php">Manage article</a>
+                        </li>
+                    <?php } ?>
                 </ul>
 
                 <div class="d-flex ms-lg-4" id="nav-login">
-                    <a class="btn btn-outline-dark px-4" href="logout.php">
-                        Log out ->
-                    </a>
+                    <?php if (isset($_SESSION['username'])) { ?>
+                        <a class="btn btn-outline-dark px-4" href="logout.php">
+                            Logout ->
+                        </a>
+                    <?php } else { ?>
+                        <a class="btn btn-outline-dark px-4" href="login.php">
+                            Login ->
+                        </a>
+                    <?php } ?>
                 </div>
             </div>
         </div>

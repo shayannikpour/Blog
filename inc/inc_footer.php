@@ -45,8 +45,8 @@
 
 
                 <div class="col-md-4 mb-4 mb-md-0 text-center">
-                    <h5 class="mb-3 text-body-secondary">Team Members</h5>
-                    <h5 class="mb-3 text-body-secondary">Eddie, Shayan, Jask</h5>
+                    <h5 class="mb-3 text-body-secondary">Team Members:</h5>
+                    <h5 class="mb-3 text-body-secondary">Eddie, Shayan, Jaskunwar</h5>
 
                 </div>
 

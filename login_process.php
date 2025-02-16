@@ -29,12 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $row['Role'];
 
-            // Redirect based on role
-            if ($row['Role'] === 'Admin') {
-                header("Location: admin.php");
-            } else {
-                header("Location: home.php");
-            }
+            // Always redirect to home.php regardless of role
+            header("Location: home.php");
             exit();
         } 
         else 

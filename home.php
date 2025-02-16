@@ -26,6 +26,15 @@ $results = $db->query($query);
 <!-- Blurred background -->
 <div class="background-blur"></div>
 
+<!-- Admin Button (Moved to top of page) -->
+<?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'Admin') { ?>
+    <div class="container mt-4">
+        <div class="text-center">
+            <a href="admin.php" class="btn btn-danger btn-lg">Admin Panel</a>
+        </div>
+    </div>
+<?php } ?>
+
 <!-- Write Article Button -->
 <div class="container mt-4">
     <div class="text-center">
@@ -80,38 +89,5 @@ $results = $db->query($query);
         }
     }
 </script>
-
-<!-- Custom CSS for Admin Button -->
-<style>
-    .admin-button {
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        z-index: 1000;
-    }
-
-    .admin-button a {
-        padding: 12px 20px;
-        font-size: 18px;
-        font-weight: bold;
-        border-radius: 10px;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .admin-button a:hover {
-        background-color: #c82333;
-        border-color: #bd2130;
-    }
-</style>
-
-<!-- Admin Button -->
-<?php
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') 
-{
-    echo '<div class="admin-button">
-        <a href="admin.php" class="btn btn-danger">Admin Panel</a>
-    </div>';
-}
-?>
 
 <?php include('./inc/inc_footer.php'); ?>

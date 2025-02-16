@@ -105,18 +105,13 @@ $results = $db->query($query);
 </style>
 
 <!-- Admin Button -->
-
 <?php
-if ($_SESSION['role'] == 'Admin') 
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') 
 {
     echo '<div class="admin-button">
         <a href="admin.php" class="btn btn-danger">Admin Panel</a>
     </div>';
 }
 ?>
-
-<!-- <div class="admin-button">
-    <a href="admin.php" class="btn btn-danger">Admin Panel</a>
-</div> -->
 
 <?php include('./inc/inc_footer.php'); ?>

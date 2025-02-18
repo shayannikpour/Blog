@@ -19,8 +19,8 @@ A simple blog web application where users can post articles with role-based acce
 
 4. Open your web browser and visit:
 
-   http://localhost:8000
-   
+   http://localhost:8888
+
 
 ## Features
 

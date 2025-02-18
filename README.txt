@@ -7,30 +7,20 @@ A simple blog web application where users can post articles with role-based acce
 1. Clone or download the repository to your local machine
 
 2. Navigate to the project directory:
-   ```bash
+
    cd [project-directory]
-   ```
+
 
 3. Start the PHP development server:
-   ```bash
-   php -S localhost:8000
-   ```
-   Note: You can use any available port number instead of 8000
+
+   php -S localhost:8888
+
+   Note: You can use any available port number instead of 8888
 
 4. Open your web browser and visit:
-   ```
+
    http://localhost:8000
-   ```
-
-## Default Login Credentials
-
-### Admin Account
-- Username: a@a.a
-- Password: P@$$w0rd
-
-### Contributor Account
-- Username: c@c.c
-- Password: P@$$w0rd
+   
 
 ## Features
 

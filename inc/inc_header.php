@@ -1,5 +1,4 @@
 <?php
-// Removed session_start() since it's called in the main pages
 ?>
 <!DOCTYPE html>
 <html lang="en">

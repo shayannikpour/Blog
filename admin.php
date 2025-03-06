@@ -1,11 +1,11 @@
-<?php include('./inc/inc_header.php'); ?>
-<?php
+<?php 
 session_start();
+include('./inc/inc_header.php');
 $db = new SQLite3('info.db');
 
 // Ensure the user is logged in
 if (!isset($_SESSION['username'])) {
-    echo "<script>alert('You must be logged in.'); window.location.href='login.php';</script>";
+    header("Location: login.php");
     exit();
 }
 
@@ -21,7 +21,7 @@ if ($user) {
 
 // Check if the user is an admin
 if ($_SESSION['role'] !== 'Admin') {
-    echo "<script>alert('Access Denied! You are not an admin.'); window.location.href='home.php';</script>";
+    header("Location: home.php");
     exit();
 }
 

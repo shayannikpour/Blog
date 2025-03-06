@@ -20,9 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_article']))
 
     if (!empty($title) && !empty($body)) 
     {
-        $stmt = $db->prepare("INSERT INTO Articles (ArticleTitle, ArticleBody, CreateDate, StartDate, EndDate, ContributerUsername) VALUES (:title, :body, DATE('now'), :start_date, :end_date, :username)");
+        // Get the current date in Pacific Standard Time
+        $current_date = new DateTime('now', new DateTimeZone('America/Los_Angeles'));
+        $formatted_date = $current_date->format('Y-m-d');
+
+        $stmt = $db->prepare("INSERT INTO Articles (ArticleTitle, ArticleBody, CreateDate, StartDate, EndDate, ContributerUsername) VALUES (:title, :body, :create_date, :start_date, :end_date, :username)");
         $stmt->bindValue(':title', $title, SQLITE3_TEXT);
         $stmt->bindValue(':body', $body, SQLITE3_TEXT);
+        $stmt->bindValue(':create_date', $formatted_date, SQLITE3_TEXT);
         $stmt->bindValue(':username', $username, SQLITE3_TEXT);
         $stmt->bindValue(':start_date', $start_date, SQLITE3_TEXT);
         $stmt->bindValue(':end_date', $end_date, SQLITE3_TEXT);
@@ -111,7 +116,7 @@ $articles = $db->query("SELECT * FROM Articles WHERE ContributerUsername = '$use
                 <p class="text-muted"><small>Visible from <?= $row['StartDate'] ?> to <?= $row['EndDate'] ?></small></p>
 
                 <!-- Edit Article Button -->
-                <button class="btn btn-warning" onclick="editArticle('<?= $row['ArticleId'] ?>', '<?= htmlspecialchars($row['ArticleTitle']) ?>', '<?= htmlspecialchars($row['ArticleBody']) ?>', '<?= htmlspecialchars($row['StartDate']) ?>', '<?= htmlspecialchars($row['EndDate']) ?>')">Edit</button>
+                <button class="btn btn-warning" onclick='editArticle(<?= json_encode($row['ArticleId']) ?>, <?= json_encode(htmlspecialchars($row['ArticleTitle'], ENT_QUOTES, 'UTF-8')) ?>, <?= json_encode(htmlspecialchars($row['ArticleBody'], ENT_QUOTES, 'UTF-8')) ?>, <?= json_encode($row['StartDate']) ?>, <?= json_encode($row['EndDate']) ?>)'>Edit</button>
 
                 <!-- Delete Article Form -->
                 <form method="post" class="d-inline">

@@ -5,8 +5,7 @@ $db = new SQLite3('info.db');
 // Set the default timezone to Pacific Standard Time
 date_default_timezone_set('America/Los_Angeles');
 
-if (!isset($_SESSION['username'])) 
-{
+if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
@@ -17,7 +16,12 @@ $username = $_SESSION['username'];
 $current_date = date('Y-m-d');
 
 // Fetch articles that are within the visibility window
-$query = "SELECT * FROM Articles WHERE StartDate <= '$current_date' AND EndDate >= '$current_date' ORDER BY CreateDate DESC";
+$query = "SELECT Articles.*, Users.FirstName, Users.LastName 
+          FROM Articles 
+          JOIN Users ON Articles.ContributerUsername = Users.Username 
+          WHERE StartDate <= '$current_date' AND EndDate >= '$current_date' 
+          ORDER BY CreateDate DESC";
+
 $results = $db->query($query);
 ?>
 
@@ -52,8 +56,9 @@ $results = $db->query($query);
 
             <!-- Author & Date -->
             <p class="text-muted">
-                <?= htmlspecialchars($row['ContributerUsername']) ?>, <?= date("F j, Y", strtotime($row['CreateDate'])) ?>
+                <?= htmlspecialchars($row['FirstName'] . ' ' . $row['LastName']) ?>, <?= date("F j, Y", strtotime($row['CreateDate'])) ?>
             </p>
+
 
             <!-- Article Preview -->
             <p>

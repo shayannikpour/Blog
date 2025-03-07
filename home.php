@@ -63,10 +63,10 @@ $results = $db->query($query);
             <!-- Article Preview -->
             <p>
                 <span id="preview_<?= $row['ArticleId'] ?>">
-                    <?= htmlspecialchars(substr($row['ArticleBody'], 0, 100)) ?>...
+                    <?= substr($row['ArticleBody'], 0, 100) ?>...
                 </span>
                 <span id="full_<?= $row['ArticleId'] ?>" style="display: none;">
-                    <?= nl2br(htmlspecialchars($row['ArticleBody'])) ?>
+                    <?= nl2br($row['ArticleBody']) ?>
                 </span>
                 <a href="javascript:void(0);" class="text-primary" onclick="toggleArticle(<?= $row['ArticleId'] ?>)">
                     <span id="toggle_<?= $row['ArticleId'] ?>">more...</span>

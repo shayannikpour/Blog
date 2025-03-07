@@ -18,7 +18,8 @@ $username = $_SESSION['username'];
 function validateInput($data) {
     $data = trim($data);
     $data = stripslashes($data);
-    $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+    // Use ENT_NOQUOTES to preserve quotes in the content while still preventing XSS
+    $data = htmlspecialchars($data, ENT_NOQUOTES, 'UTF-8');
     return $data;
 }
 
@@ -258,7 +259,7 @@ $articles = $db->query("SELECT * FROM Articles WHERE ContributerUsername = '$use
         <div class="card mb-3">
             <div class="card-body">
                 <h4 class="card-title"><?= htmlspecialchars($row['ArticleTitle']) ?></h4>
-                <p class="card-text"><?= nl2br(htmlspecialchars($row['ArticleBody'])) ?></p>
+                <p class="card-text"><?= nl2br($row['ArticleBody']) ?></p>
                 <p class="text-muted"><small>Posted on <?= $row['CreateDate'] ?></small></p>
                 <p class="text-muted"><small>Visible from <?= $row['StartDate'] ?> to <?= $row['EndDate'] ?></small></p>
 

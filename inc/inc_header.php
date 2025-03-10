@@ -57,7 +57,12 @@
                         <a class="btn btn-outline-dark px-4" href="logout.php">
                             Logout ->
                         </a>
-                    <?php } else { ?>
+                    <?php } 
+                    else 
+                    { ?>
+                        <a class="btn btn-outline-dark px-4" href="register.php">
+                            Sign Up ->
+                        </a>
                         <a class="btn btn-outline-dark px-4" href="login.php">
                             Login ->
                         </a>

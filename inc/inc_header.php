@@ -24,12 +24,54 @@
             font-family: "Outfit", sans-serif;
             font-weight: 500px; 
         }
+        
+        @media (min-width: 992px) {
+            #mainNav .navbar-nav {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            #mainNav .navbar-nav .nav-item {
+                text-align: center;
+            }
+            
+            #mainNav .navbar-nav .nav-item + .nav-item {
+                margin-left: 2rem;
+            }
+            
+            .navbar-brand {
+                z-index: 1;
+                position: relative;
+            }
+            
+            #nav-login {
+                z-index: 1;
+                position: absolute;
+                right: 0;
+                display: flex;
+                gap: 10px;
+            }
+            
+            .navbar .container {
+                position: relative;
+            }
+        }
+        
+        #nav-login .btn {
+            margin-left: 10px;
+        }
+        
+        #nav-login .btn-outline-dark {
+            min-width: 110px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-white border-bottom py-3">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="home.php">
+            <a class="navbar-brand d-flex align-items-center" href="index.php">
                 <i class="bi bi-bootstrap-fill fs-2 text-dark me-2"></i>
                 <span class="fs-4 fw-semibold">Blog</span>
             </a>
@@ -39,10 +81,10 @@
             </button>
 
             <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav mx-auto gap-4">
+                <ul class="navbar-nav text-center">
                     <!-- Home link is always visible -->
                     <li class="nav-item">
-                        <a class="nav-link text-dark fs-5" href="home.php">Home</a>
+                        <a class="nav-link text-dark fs-5" href="index.php">Home</a>
                     </li>
                     <!-- Manage article link only visible when logged in -->
                     <?php if (isset($_SESSION['username'])) { ?>
@@ -52,7 +94,7 @@
                     <?php } ?>
                 </ul>
 
-                <div class="d-flex ms-lg-4" id="nav-login">
+                <div class="d-flex" id="nav-login">
                     <?php if (isset($_SESSION['username'])) { ?>
                         <a class="btn btn-outline-dark px-4" href="logout.php">
                             Logout ->
@@ -64,8 +106,7 @@
                         <a class="btn btn-outline-dark px-4" href="register.php">
                             Sign Up ->
                         </a>
-                        </li>
-                        <li class="nav-item">
+                        <span class="align-self-center mx-2 text-dark">/</span>
                         <a class="btn btn-outline-dark px-4" href="login.php">
                             Login ->
                         </a>

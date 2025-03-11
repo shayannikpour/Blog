@@ -60,12 +60,16 @@
                     <?php } 
                     else 
                     { ?>
+                        <li class="nav-item">
                         <a class="btn btn-outline-dark px-4" href="register.php">
                             Sign Up ->
                         </a>
+                        </li>
+                        <li class="nav-item">
                         <a class="btn btn-outline-dark px-4" href="login.php">
                             Login ->
                         </a>
+                        </li>
                     <?php } ?>
                 </div>
             </div>

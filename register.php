@@ -35,8 +35,9 @@
             </div>
             <button class="btn-primary" type="submit">Register</button>
         </form>
+        <br>
         <p class="form-footer">
-            Already have an account? <a href="login.php">Login</a>
+            <a href="login.php">Login</a>
         </p>
     </div>
 </div>

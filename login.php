@@ -16,8 +16,9 @@
             </div>
             <button type="submit" class="btn-primary">Login</button>
         </form>
+        <br>
         <p class="form-footer">
-            Don't have an account? <a href="register.php">Register</a>
+            <a href="register.php">Register</a>
         </p>
     </div>
 </div>

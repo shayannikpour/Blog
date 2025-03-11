@@ -40,12 +40,14 @@ $results = $db->query($query);
     </div>
 <?php } ?>
 
-<!-- Write Article Button -->
+<!-- Write Article Button - Only show for logged-in users -->
+<?php if (isset($_SESSION['username'])) { ?>
 <div class="container mt-4">
     <div class="text-center">
         <a href="write.php" class="btn btn-primary btn-lg">Click to manage your articles</a>
     </div>
 </div>
+<?php } ?>
 
 <div class="container mt-4">
     <h2 class="text-center mb-4">Latest Articles</h2>
